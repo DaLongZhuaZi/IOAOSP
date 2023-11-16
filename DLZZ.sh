@@ -5,7 +5,7 @@ CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划" \
                 --title "IOAOSP" \
                 --menu "请选择功能:" 15 40 4 \
                 1 "可执行的脚本列表" \
-                2 "更新" \
+                2 "更新本工具" \
                 3 "关于作者" \
                 4 "退出" \
                 3>&1 1>&2 2>&3)
@@ -18,11 +18,11 @@ case $CHOICE in
         ;;
     2)
         echo "执行操作2"
-        # 在这里添加操作2的代码
+        git clone https://github.com/DaLongZhuaZi/IOAOSP.git
         ;;
     3)
         echo "执行操作3"
-        # 在这里添加操作3的代码
+        git clone https://github.com/DaLongZhuaZi/IOAOSP.git
         ;;
     4)
         echo "退出"
