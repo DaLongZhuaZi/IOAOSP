@@ -77,7 +77,7 @@ execute_o_2() {
 execute_option_2() {
     # 在这里添加操作2的代码
     rm -rf /root/IOAOSP
-    git clone https://github.com/DaLongZhuaZi/IOAOSP.git
+    git clone https://gitee.com/dalongzz/IOAOSP.git
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新完成，请按回车返回主界面" 10 30
 }
