@@ -18,7 +18,7 @@ case $CHOICE in
         ;;
     2)
         echo "执行操作2"
-        git clone https://github.com/DaLongZhuaZi/IOAOSP.git
+        git clone -f https://github.com/DaLongZhuaZi/IOAOSP.git
         ;;
     3)
         echo "执行操作3"
