@@ -27,7 +27,7 @@ case $CHOICE in
 # 定义 DLZZ 命令\
 DLZZ() {\
         sh /root/IOAOSP/DLZZ.sh\
-        }' /etc/zsh/zshrc
+}' /etc/zsh/zshrc
         . /etc/zsh/zshrc
     ;;
     4)
