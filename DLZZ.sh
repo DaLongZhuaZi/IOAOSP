@@ -24,9 +24,9 @@ case $CHOICE in
     3)
         echo "执行操作3"
         sed -i '15i\
-        # 定义 DLZZ 命令\
-        DLZZ() {\
-                sh /root/IOAOSP/DLZZ.sh\
+# 定义 DLZZ 命令\
+DLZZ() {\
+        sh /root/IOAOSP/DLZZ.sh\
         }' /etc/zsh/zshrc
         . /etc/zsh/zshrc
     ;;
