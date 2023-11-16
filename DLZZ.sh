@@ -2,7 +2,7 @@
 
 main_menu() {
     CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划 by DaLongZhuaZi" \
-        --title "IOAOSP" \
+        --title "IOAOSP v0.1" \
         --menu "请选择功能:" 15 40 4 \
         1 "可执行的脚本列表" \
         2 "更新本工具" \
