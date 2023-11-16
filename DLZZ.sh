@@ -17,12 +17,13 @@ case $CHOICE in
         # 在这里添加操作1的代码
         ;;
     2)
-        echo "执行操作2"
-        git clone -f https://github.com/DaLongZhuaZi/IOAOSP.git
+        echo "正在删除本地文件并更新"
+        rm -rf /root/IOAOSP
+        git clone https://github.com/DaLongZhuaZi/IOAOSP.git
         ;;
     3)
         echo "执行操作3"
-        git clone https://github.com/DaLongZhuaZi/IOAOSP.git
+
         ;;
     4)
         echo "退出"
