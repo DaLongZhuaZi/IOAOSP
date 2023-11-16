@@ -12,7 +12,7 @@ main_menu() {
     
     case $CHOICE in
         1)
-            echo "执行操作1"
+            echo "加载可执行的脚本列表"
             execute_option_1
         ;;
         2)
@@ -34,10 +34,44 @@ main_menu() {
 }
 
 execute_option_1() {
-    # 在这里添加操作1的代码
+    CHOICE=$(dialog --clear --backtitle "DaLongZhuaZi" \
+        --title "可执行的脚本列表" \
+        --menu "请选择脚本:" 15 40 4 \
+        1 "升级所有软件包" \
+        2 "子操作1-2" \
+        3 "返回主界面" \
+    3>&1 1>&2 2>&3)
     
+    case $CHOICE in
+        1)
+            echo "升级所有软件包"
+            execute_o_1
+        ;;
+        2)
+            echo "执行子操作1-2"
+            execute_o_2
+        ;;
+        3)
+            echo "返回主界面"
+        ;;
+        *)
+            echo "未知选项"
+        ;;
+    esac
+}
+
+execute_o_1() {
+    apt update
+    apt upgrade -y
     # 弹出确认窗口
-    dialog --clear --backtitle "操作完成" --title "确认" --msgbox "操作1执行完成，请按回车键返回主选择界面" 10 30
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新软件包完成，请按回车返回主界面" 10 30
+}
+
+execute_o_2() {
+    # 在这里添加子操作1-2的代码
+
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新软件包完成，请按回车返回主界面" 10 30
 }
 
 execute_option_2() {
@@ -56,7 +90,7 @@ DLZZ() {\
         sh /root/IOAOSP/DLZZ.sh\
     }' /etc/zsh/zshrc
     # 弹出确认窗口
-    dialog --clear --backtitle "DaLongZhuaZi" --title "初始化完成" --msgbox "请在退出工具后手动输入. /etc/zsh/zshrc并回车" 10 30
+    dialog --clear --backtitle "DaLongZhuaZi" --title "初始化完成" --msgbox "请在退出工具后手动输入source /etc/zsh/zshrc并回车" 10 30
 }
 
 # 运行主选择界面
