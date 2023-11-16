@@ -28,7 +28,7 @@ case $CHOICE in
         DLZZ() {\
                 sh /root/IOAOSP/DLZZ.sh\
         }' /etc/zsh/zshrc
-        source /etc/zsh/zshrc
+        . /etc/zsh/zshrc
     ;;
     4)
         echo "退出"
