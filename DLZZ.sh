@@ -1,7 +1,7 @@
 #!/bin/bash
 
 main_menu() {
-    CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划" \
+    CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划 by DaLongZhuaZi" \
         --title "IOAOSP" \
         --menu "请选择功能:" 15 40 4 \
         1 "可执行的脚本列表" \
@@ -45,7 +45,7 @@ execute_option_2() {
     rm -rf /root/IOAOSP
     git clone https://github.com/DaLongZhuaZi/IOAOSP.git
     # 弹出确认窗口
-    dialog --clear --backtitle "更新完成" --title "确认" --msgbox "更新完成，请按回车返回主界面" 10 30
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新完成，请按回车返回主界面" 10 30
 }
 
 execute_option_3() {
@@ -56,7 +56,7 @@ DLZZ() {\
         sh /root/IOAOSP/DLZZ.sh\
     }' /etc/zsh/zshrc
     # 弹出确认窗口
-    dialog --clear --backtitle "初始化完成" --title "确认" --msgbox "完成，请在退出工具后手动输入. /etc/zsh/zshrc并回车" 10 30
+    dialog --clear --backtitle "DaLongZhuaZi" --title "初始化完成" --msgbox "请在退出工具后手动输入. /etc/zsh/zshrc并回车" 10 30
 }
 
 # 运行主选择界面
