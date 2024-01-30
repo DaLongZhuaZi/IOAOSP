@@ -107,7 +107,7 @@ execute_option_2() {
     # 在这里添加操作2的代码
     rm -rf /root/IOAOSP
     git clone https://gitee.com/dalongzz/IOAOSP.git
-    chmod +x /root/IOAOSP/DLZZ.sh
+    chmod +x /root/IOAOSP
 
     # 获取当前脚本的绝对路径
     script_path=$(realpath "$0")
