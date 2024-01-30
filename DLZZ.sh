@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义版本号
-VERSION="0.3"
+VERSION="0.4"
 
 # 存储版本号到变量
 script_version="$VERSION"
