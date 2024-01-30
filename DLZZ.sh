@@ -164,8 +164,8 @@ execute_option_4() {
 execute_4_1() {
     # 使用 dialog 创建输入框，确保输入有效的分辨率格式
     resolution=$(dialog --inputbox "请输入新的分辨率，例如:2880x1440（中间为小写字母x）:" 10 30 --stdout --no-cancel)
-    # 在文件中替换第 20 行的内容为用户输入的分辨率
-    sed -i "20s/.*/geometry=$resolution/" /etc/tigervnc/vncserver-config-tmoe
+    # 在文件中替换第 17 行的内容为用户输入的分辨率
+    sed -i "17s/.*/VNC_RESOLUTION=$resolution/" /usr/local/bin/startvnc
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "设置完成" --msgbox "分辨率设置完成，请输入restartvnc来重启vnc服务，按回车返回主界面" 10 30
 }
