@@ -2,6 +2,13 @@ source ./DLZZ.sh
 
 execute_option_3() {
     # 在这里添加操作3的代码
+    chmod +x /root/IOAOSP/DLZZ.sh
+    chmod +x /root/IOAOSP
+    chmod +x /root/IOAOSP/system.sh
+    chmod +x /root/IOAOSP/init.sh
+    chmod +x /root/IOAOSP/app.sh
+    chmod +x /root/IOAOSP/update.sh
+
     sed -i '15i\
 # 定义 DLZZ 命令\
 DLZZ() {\
