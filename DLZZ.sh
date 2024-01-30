@@ -105,11 +105,7 @@ execute_1_2() {
 
 execute_option_2() {
     # 在这里添加操作2的代码
-    rm -rf /root/IOAOSP
-    echo "开始执行 git clone"
-    git clone https://gitee.com/dalongzz/IOAOSP.git
-    echo "git clone 执行完毕"
-    
+    git pull origin main
     chmod +x /root/IOAOSP
     
     # 获取当前脚本的绝对路径
