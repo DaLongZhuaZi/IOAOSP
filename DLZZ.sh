@@ -108,6 +108,8 @@ execute_option_2() {
     rm -rf /root/IOAOSP
     git clone https://gitee.com/dalongzz/IOAOSP.git
 
+    chmod +x /root/IOAOSP/DLZZ.sh
+
     # 读取版本信息到变量
     if [ -f /root/script_version.txt ]; then
         script_version=$(cat /root/script_version.txt)
