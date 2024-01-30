@@ -90,6 +90,12 @@ execute_option_3() {
 DLZZ() {\
         sh /root/IOAOSP/DLZZ.sh\
     }' /etc/zsh/zshrc
+    sed -i '16i\
+# 定义 dlzz 命令\
+dlzz() {\
+        sh /root/IOAOSP/DLZZ.sh\
+    }' /etc/zsh/zshrc
+    
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "初始化完成" --msgbox "请在退出工具后手动输入source /etc/zsh/zshrc并回车" 10 30
 }
