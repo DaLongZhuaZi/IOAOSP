@@ -4,7 +4,7 @@ main_menu() {
     CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划 by DaLongZhuaZi" \
         --title "IOAOSP v0.1" \
         --menu "请选择功能:" 15 40 4 \
-        1 "可执行的脚本列表" \
+        1 "安装软件" \
         2 "更新本工具" \
         3 "初始化工具（仅需执行一次）" \
         4 "退出" \
@@ -35,10 +35,10 @@ main_menu() {
 
 execute_option_1() {
     CHOICE=$(dialog --clear --backtitle "DaLongZhuaZi" \
-        --title "可执行的脚本列表" \
-        --menu "请选择脚本:" 15 40 4 \
-        1 "升级所有软件包" \
-        2 "子操作1-2" \
+        --title "可安装的软件列表" \
+        --menu "请选择软件:" 15 40 4 \
+        1 "升级系统所有软件" \
+        2 "安装WPS Office" \
         3 "返回主界面" \
     3>&1 1>&2 2>&3)
     
@@ -48,7 +48,7 @@ execute_option_1() {
             execute_o_1
         ;;
         2)
-            echo "执行子操作1-2"
+            echo "安装WPS Office"
             execute_o_2
         ;;
         3)
@@ -69,9 +69,10 @@ execute_o_1() {
 
 execute_o_2() {
     # 在这里添加子操作1-2的代码
-
+    apt update
+    apt install wps-office wps-office-fonts -y
     # 弹出确认窗口
-    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新软件包完成，请按回车返回主界面" 10 30
+    dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "WPS安装完成，请按回车返回主界面" 10 30
 }
 
 execute_option_2() {
