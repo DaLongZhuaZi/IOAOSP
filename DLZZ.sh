@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义版本号
-VERSION="1.0"
+VERSION="0.3"
 
 # 存储版本号到变量
 script_version="$VERSION"
@@ -107,8 +107,19 @@ execute_option_2() {
     # 在这里添加操作2的代码
     rm -rf /root/IOAOSP
     git clone https://gitee.com/dalongzz/IOAOSP.git
-    # 弹出确认窗口
-    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新完成，请按回车返回主界面" 10 30
+
+    # 读取版本信息到变量
+    if [ -f /root/script_version.txt ]; then
+        script_version=$(cat /root/script_version.txt)
+    else
+        script_version="未知版本"  # 或者设置一个默认值
+    fi
+
+    # 弹出确认窗口，显示版本信息
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "当前版本：v$script_version\n更新完成，脚本将自动重启" 10 50
+
+    # 自动重启脚本
+    exec "$0" "$@"  
 }
 
 execute_option_3() {
