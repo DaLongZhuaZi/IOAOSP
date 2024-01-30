@@ -20,7 +20,7 @@ main_menu() {
     if [ -f /root/script_version.txt ]; then
         script_version=$(cat /root/script_version.txt)
     else
-        script_version="未知版本"  
+        script_version="未知版本"
     fi
     # 使用 $script_version 变量在脚本中引用版本号
     CHOICE=$(dialog --clear --backtitle "安卓鸿蒙补完计划 by DaLongZhuaZi" \
@@ -164,11 +164,10 @@ execute_option_4() {
 execute_4_1() {
     # 使用 dialog 创建输入框，确保输入有效的分辨率格式
     resolution=$(dialog --inputbox "请输入新的分辨率，例如:2880x1440（中间为小写字母x）:" 10 30 --stdout --no-cancel)
-        # 在文件中替换第 20 行的内容为用户输入的分辨率
-        sed -i "20s/.*/geometry=$resolution/" /etc/tigervnc/vncserver-config-tmoe
-        # 弹出确认窗口
-        dialog --clear --backtitle "DaLongZhuaZi" --title "设置完成" --msgbox "分辨率设置完成，请输入restartvnc来重启vnc服务，按回车返回主界面" 10 30
-    fi
+    # 在文件中替换第 20 行的内容为用户输入的分辨率
+    sed -i "20s/.*/geometry=$resolution/" /etc/tigervnc/vncserver-config-tmoe
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "设置完成" --msgbox "分辨率设置完成，请输入restartvnc来重启vnc服务，按回车返回主界面" 10 30
 }
 
 # 运行主选择界面
