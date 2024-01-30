@@ -107,8 +107,10 @@ execute_option_2() {
     # 在这里添加操作2的代码
     rm -rf /root/IOAOSP
     git clone https://gitee.com/dalongzz/IOAOSP.git
-
     chmod +x /root/IOAOSP/DLZZ.sh
+
+    # 获取当前脚本的绝对路径
+    script_path=$(realpath "$0")
 
     # 读取版本信息到变量
     if [ -f /root/script_version.txt ]; then
@@ -118,11 +120,13 @@ execute_option_2() {
     fi
 
     # 弹出确认窗口，显示版本信息
-    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "当前版本：v$script_version\n更新完成，脚本将自动重启" 10 50
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "版本：$script_version\n更新完成，脚本将自动重启" 10 50
 
     # 自动重启脚本
-    exec "$0" "$@"  
+    exec "$script_path" "$@"  
 }
+
+# 其他脚本逻辑...
 
 execute_option_3() {
     # 在这里添加操作3的代码
