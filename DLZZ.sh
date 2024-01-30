@@ -130,19 +130,19 @@ execute_option_3() {
     # 在这里添加操作3的代码
     cat <<EOL >> /etc/zsh/zshrc
 
-# 定义 DLZZ 命令\
-DLZZ() {\
-        sh /root/IOAOSP/DLZZ.sh\
-    }' /etc/zsh/zshrc
-# 定义 dlzz 命令\
-dlzz() {\
-        sh /root/IOAOSP/DLZZ.sh\
-    }' /etc/zsh/zshrc
-# 定义 restartvnc 命令\
-restartvnc() {
-        stopvnc
-        startvnc
-    }' /etc/zsh/zshrc
+# 定义 DLZZ 命令
+    DLZZ() {
+            sh /root/IOAOSP/DLZZ.sh
+            }
+# 定义 dlzz 命令
+    dlzz() {
+            sh /root/IOAOSP/DLZZ.sh
+            }
+# 定义 restartvnc 命令
+    restartvnc() {
+            stopvnc
+            startvnc
+            }
 
 EOL
     # 弹出确认窗口
