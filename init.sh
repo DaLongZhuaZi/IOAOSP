@@ -1,7 +1,7 @@
 source ./DLZZ.sh
 
 execute_option_3() {
-    # ÔÚÕâÀïÌí¼Ó²Ù×÷3µÄ´úÂë
+    # åœ¨è¿™é‡Œæ·»åŠ æ“ä½œ3çš„ä»£ç 
     chmod +x /root/IOAOSP/DLZZ.sh
     chmod +x /root/IOAOSP
     chmod +x /root/IOAOSP/system.sh
@@ -10,21 +10,21 @@ execute_option_3() {
     chmod +x /root/IOAOSP/update.sh
 
     sed -i '15i\
-# ¶¨Òå DLZZ ÃüÁî\
+# å®šä¹‰ DLZZ å‘½ä»¤\
 DLZZ() {\
         sh /root/IOAOSP/DLZZ.sh\
     }' /etc/zsh/zshrc
     sed -i '16i\
-# ¶¨Òå dlzz ÃüÁî\
+# å®šä¹‰ dlzz å‘½ä»¤\
 dlzz() {\
         sh /root/IOAOSP/DLZZ.sh\
     }' /etc/zsh/zshrc
     sed -i '17i\
-# ¶¨Òå restartvnc ÃüÁî\
+# å®šä¹‰ restartvnc å‘½ä»¤\
 restartvnc() {
         stopvnc
         startvnc
     }' /etc/zsh/zshrc
-    # µ¯³öÈ·ÈÏ´°¿Ú
-    dialog --clear --backtitle "DaLongZhuaZi" --title "³õÊ¼»¯Íê³É" --msgbox "ÇëÔÚÍË³ö¹¤¾ßºóÊÖ¶¯ÊäÈësource /etc/zsh/zshrc²¢»Ø³µ" 10 30
+    # å¼¹å‡ºç¡®è®¤çª—å£
+    dialog --clear --backtitle "DaLongZhuaZi" --title "åˆå§‹åŒ–å®Œæˆ" --msgbox "è¯·åœ¨é€€å‡ºå·¥å…·åæ‰‹åŠ¨è¾“å…¥source /etc/zsh/zshrcå¹¶å›è½¦" 10 30
 }
