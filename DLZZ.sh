@@ -28,15 +28,15 @@ main_menu() {
     case $CHOICE in
         1)
             echo "加载可执行的脚本列表"
-            execute_option_1
+            bash ./app.sh
         ;;
         2)
             echo "加载可执行的脚本列表"
-            execute_option_4
+            bash ./system.sh
         ;;
         3)
             echo "正在删除本地文件并更新"
-            execute_option_2
+            bash ./update.sh
         ;;
         4)
             echo "初始化"
