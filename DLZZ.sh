@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#配置语言环境
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 main_menu() {
     CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划 by DaLongZhuaZi" \
         --title "IOAOSP v0.1" \
