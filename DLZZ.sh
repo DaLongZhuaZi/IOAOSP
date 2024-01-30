@@ -1,11 +1,29 @@
 #!/bin/bash
 
+# 定义版本号
+VERSION="1.0"
+
+# 存储版本号到变量
+script_version="$VERSION"
+
+# 向 /root 写入版本信息文件
+echo "$script_version" > /root/script_version.txt
+
+# 其他脚本逻辑...
+
 #配置语言环境
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 main_menu() {
-    CHOICE=$(dialog --clear --backtitle "安卓/鸿蒙补完计划 by DaLongZhuaZi" \
+    # 读取版本信息到变量
+    if [ -f /root/script_version.txt ]; then
+        script_version=$(cat /root/script_version.txt)
+    else
+        script_version="未知版本"  
+    fi
+    # 使用 $script_version 变量在脚本中引用版本号
+    CHOICE=$(dialog --clear --backtitle "工具版本:$script_version by DaLongZhuaZi" \
         --title "IOAOSP v0.1" \
         --menu "请选择功能:" 15 40 4 \
         1 "安装软件" \
@@ -146,12 +164,12 @@ execute_option_4() {
 execute_4_1() {
     # 使用 dialog 创建输入框，确保输入有效的分辨率格式
     resolution=$(dialog --inputbox "请输入新的分辨率（例如：2880x1440）:" 10 30 --stdout --no-cancel)
-
+    
     # 检查用户输入是否符合有效的分辨率格式
     if [[ $resolution =~ ^[0-9]+x[0-9]+$ ]]; then
         # 在文件中替换第 20 行的内容为用户输入的分辨率
         sed -i "20s/.*/geometry=$resolution/" /etc/tigervnc/vncserver-config-tmoe
-
+        
         # 弹出确认窗口
         dialog --clear --backtitle "DaLongZhuaZi" --title "设置完成" --msgbox "分辨率设置完成，请输入restartvnc来重启vnc服务，按回车返回主界面" 10 30
     else
