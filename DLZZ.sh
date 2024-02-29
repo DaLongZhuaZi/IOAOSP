@@ -9,7 +9,17 @@ script_version="$VERSION"
 # 向 /root 写入版本信息文件
 echo "$script_version" > /root/script_version.txt
 
-# 其他脚本逻辑...
+# 在/root目录下新建更新脚本文件，并写入内容
+cat <<EOL > /root/IOAOSP_update.sh
+#!/bin/bash
+cd /root/
+rm -rf IOAOSP
+git clone https://gitee.com/dalongzz/IOAOSP.git
+chmod +x /root/IOAOSP/DLZZ.sh
+chmod +x /root/IOAOSP
+EOL
+
+
 
 #配置语言环境
 export LC_ALL=en_US.UTF-8
@@ -39,7 +49,7 @@ main_menu() {
             execute_option_1
         ;;
         2)
-            echo "正在删除本地文件并更新"
+            echo "加载可执行的脚本列表"
             execute_option_4
         ;;
         3)
@@ -66,7 +76,8 @@ execute_option_1() {
         --menu "请选择软件:" 15 40 4 \
         1 "升级系统所有软件" \
         2 "安装WPS Office" \
-        3 "返回主界面" \
+        3 "安装微信" \
+        4 "返回主界面"\
     3>&1 1>&2 2>&3)
     
     case $CHOICE in
@@ -79,6 +90,10 @@ execute_option_1() {
             execute_1_2
         ;;
         3)
+            echo "安装微信"
+            execute_1_3
+        ;;
+        4)
             echo "返回主界面"
         ;;
         *)
@@ -99,35 +114,37 @@ execute_1_2() {
     # 在这里添加子操作1-2的代码
     apt update
     apt install wps-office wps-office-fonts -y
+    # 下载字体补全包
+    git clone
+    # 解压并移动到指定目录
+    tar -xzvf wps-fonts.tar.gz -C /usr/share/fonts/wps-office/
+    # 删除
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "WPS安装完成，请按回车返回主界面" 10 30
 }
 
+execute_1_3() {
+    # 在这里添加子操作1-3的代码
+    apt update
+    wget https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_2.1.5_arm64.deb
+    sudo dpkg -i com.tencent.weixin_2.1.5_arm64.deb
+    apt -f install
+    rm -rf com.tencent.weixin_2.1.5_arm64.deb
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "微信Linux安装完成，请按回车返回主界面" 10 30
+}
+
 execute_option_2() {
-    # 在这里添加操作2的代码
-    git pull origin main
-    chmod +x /root/IOAOSP/DLZZ.sh
-    chmod +x /root/IOAOSP
-    
-    # 获取当前脚本的绝对路径
-    script_path=$(realpath "$0")
-    
-    # 读取版本信息到变量
-    if [ -f /root/script_version.txt ]; then
-        script_version=$(cat /root/script_version.txt)
-    else
-        script_version="未知版本"  # 或者设置一个默认值
-    fi
-    
-    # 弹出确认窗口，显示版本信息
-    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "版本：$script_version\n更新完成，脚本将自动重启" 10 50
-    
-    # 自动重启脚本
-    exec "$script_path" "$@"
+    # 更新工具
+    sh /root/IOAOSP_update.sh
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "更新完成" --msgbox "更新完成，请按回车退出脚本" 10 30
+    # 重启脚本
+    exit 0
 }
 
 execute_option_3() {
-    # 在这里添加操作3的代码
+    # 初始化
     cat <<EOL >> /etc/zsh/zshrc
 
 # 定义 DLZZ 命令
@@ -150,11 +167,11 @@ EOL
 }
 
 execute_option_4() {
-    # 在这里添加操作4的代码
+    # 系统功能
     CHOICE=$(dialog --clear --backtitle "DaLongZhuaZi" \
         --title "系统功能" \
         --menu "请选择:" 15 40 4 \
-        1 "修改桌面分辨率" \
+        1 "修改桌面分辨率（使用xfce4桌面）" \
         2 "清理安装过程中的错误" \
         3 "返回主界面" \
     3>&1 1>&2 2>&3)
