@@ -75,10 +75,13 @@ execute_option_1() {
         1 "升级系统所有软件" \
         2 "安装WPS Office" \
         3 "WPS缩放修复" \
-        4 "安装微信" \
-        5 "修复微信快捷方式" \
-        6 "安装钉钉" \
-        7 "退出" \
+        4 "安装微信(uos-v2.15)" \
+        5 "修复微信快捷方式(uos-v2.15)" \
+        6 "修复微信快捷方式（恢复包自带版本）"\
+        7 "安装钉钉" \
+        8 "安装星火应用商店终端版" \
+        9 "安装fcitx云拼音模块" \
+        10 "返回主界面" \
     3>&1 1>&2 2>&3)
     
     case $CHOICE in
@@ -95,20 +98,31 @@ execute_option_1() {
             execute_1_3
         ;;
         4)
-            echo "安装微信"
+            echo "安装微信(uos-v2.15)"
             execute_1_4
         ;;
         5)
-            echo "修复微信快捷方式"
+            echo "修复微信快捷方式(uos-v2.15)"
             execute_1_5
         ;;
         6)
-            echo "安装钉钉"
+            echo "修复微信快捷方式（恢复包自带版本）"
             execute_1_6
         ;;
         7)
-            echo "退出"
-            exit 0
+            echo "安装钉钉"
+            execute_1_7
+        ;;
+        8)
+            echo "安装星火应用商店终端版"
+            execute_1_8
+        ;;
+        9)
+            echo "安装fcitx云拼音模块"
+            execute_1_9
+        ;;
+        10)
+            echo "返回主界面"
         ;;
         *)
             echo "未知选项"
@@ -162,6 +176,7 @@ execute_1_4() {
     sudo dpkg -i com.tencent.weixin_2.1.5_arm64.deb
     apt -f install
     rm -rf com.tencent.weixin_2.1.5_arm64.deb
+    chmod +x /opt/apps/com.tencent.weixin/files/weixin/weixin
     # 修补微信运行环境
     git clone https://aur.archlinux.org/wechat-uos.git
     cd wechat-uos
@@ -175,7 +190,7 @@ execute_1_4() {
     cat <<EOL >>/root/桌面/weixin.desktop
 [Desktop Entry]
 Name=微信
-Exec=/opt/apps/store.spark-app.wechat-linux-spark/files/files/weixin --no-sandbox
+Exec=/opt/apps/com.tencent.weixin/files/weixin/weixin --no-sandbox
 Terminal=false
 Type=Application
 Icon=weixin
@@ -199,7 +214,7 @@ execute_1_5() {
     cat <<EOL >>/root/桌面/weixin.desktop
 [Desktop Entry]
 Name=微信
-Exec=/opt/apps/store.spark-app.wechat-linux-spark/files/files/weixin --no-sandbox
+Exec=/opt/apps/com.tencent.weixin/files/weixin/weixin --no-sandbox
 Terminal=false
 Type=Application
 Icon=weixin
@@ -213,8 +228,29 @@ EOL
     dialog --clear --backtitle "DaLongZhuaZi" --title "修复完成" --msgbox "微信修复完成，请按回车返回主界面" 10 30
 }
 
-execute_1_6() {
+execute_1_6(){
     # 在这里添加子操作1-6的代码
+    rm -rf /root/桌面/weixin.desktop
+    # 重新创建微信桌面快捷方式
+    cat <<EOL >>/root/桌面/weixin.desktop
+[Desktop Entry]
+Name=微信
+/opt/apps/store.spark-app.wechat-linux-spark/files/files/weixin --no-sandbox
+Terminal=false
+Type=Application
+Icon=weixin
+StartupWMClass=微信
+Comment=微信桌面版
+Categories=Unity
+Path=
+StartupNotify=false
+EOL
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "修复完成" --msgbox "微信修复完成，请按回车返回主界面" 10 30
+}
+
+execute_1_7() {
+    # 在这里添加子操作1-7的代码
     apt update
     wget https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.0.40221_arm64.deb
     sudo dpkg -i com.alibabainc.dingtalk_7.5.0.40221_arm64.deb
@@ -237,6 +273,26 @@ StartupNotify=false
 EOL
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "钉钉Linux安装完成，请按回车返回主界面" 10 30
+}
+
+execute_1_8() {
+    # 在这里添加子操作1-8的代码
+    apt update
+    wget https://gitee.com/spark-store-project/spark-store/releases/download/4.2.10/spark-store-console_4.2.9.1_all.deb
+    sudo dpkg -i spark-store-console_4.2.9.1_all.deb
+    apt -f install
+    rm -rf spark-store-console_4.2.9.1_all.deb
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "星火应用商店终端版安装完成，请按回车返回主界面" 10 30
+}
+
+execute_1_9() {
+    # 在这里添加子操作1-9的代码
+    apt update
+    sudo apt-get install fcitx-cloudpinyin
+    im-config -r
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "fcitx云拼音模块安装完成，请打开Fcitx配置页面，在“附加组件”选项卡中启用并配置云拼音模块" 10 30
 }
 
 execute_option_2() {
@@ -276,7 +332,7 @@ execute_option_4() {
     CHOICE=$(dialog --clear --backtitle "DaLongZhuaZi" \
         --title "系统功能" \
         --menu "请选择:" 15 40 4 \
-        1 "修改桌面分辨率（使用xfce4桌面）" \
+        1 "修改桌面分辨率（使用VNC连接时有效）" \
         2 "清理安装过程中的错误" \
         3 "返回主界面" \
     3>&1 1>&2 2>&3)
@@ -306,6 +362,19 @@ execute_4_1() {
     sed -i "17s/.*/VNC_RESOLUTION=$resolution/" /usr/local/bin/startvnc
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "设置完成" --msgbox "分辨率设置完成，请输入restartvnc来重启vnc服务，按回车返回主界面" 10 30
+}
+
+execute_4_2() {
+    # 清理安装过程中的错误
+    apt -f install
+    # 修复dpkg
+    dpkg --configure -a
+    # 清理apt
+    apt clean
+    apt autoclean
+    apt autoremove
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "清理完成" --msgbox "清理完成，请按回车返回主界面" 10 30
 }
 
 # 运行主选择界面
