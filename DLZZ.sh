@@ -39,31 +39,31 @@ main_menu() {
         3 "更新本工具" \
         4 "初始化工具（仅需执行一次）" \
         5 "退出" \
-        3>&1 1>&2 2>&3)
-
+    3>&1 1>&2 2>&3)
+    
     case $CHOICE in
-    1)
-        echo "加载可执行的脚本列表"
-        execute_option_1
+        1)
+            echo "加载可执行的脚本列表"
+            execute_option_1
         ;;
-    2)
-        echo "加载可执行的脚本列表"
-        execute_option_4
+        2)
+            echo "加载可执行的脚本列表"
+            execute_option_4
         ;;
-    3)
-        echo "正在删除本地文件并更新"
-        execute_option_2
+        3)
+            echo "正在删除本地文件并更新"
+            execute_option_2
         ;;
-    4)
-        echo "初始化"
-        execute_option_3
+        4)
+            echo "初始化"
+            execute_option_3
         ;;
-    5)
-        echo "退出"
-        exit 0
+        5)
+            echo "退出"
+            exit 0
         ;;
-    *)
-        echo "未知选项"
+        *)
+            echo "未知选项"
         ;;
     esac
 }
@@ -74,37 +74,44 @@ execute_option_1() {
         --menu "请选择软件:" 15 40 4 \
         1 "升级系统所有软件" \
         2 "安装WPS Office" \
-        3 "安装微信" \
-        4 "修复微信" \
-        5 "安装钉钉" \
-        6 "退出" \
-        3>&1 1>&2 2>&3)
-
+        3 "WPS缩放修复" \
+        4 "安装微信" \
+        5 "修复微信快捷方式" \
+        6 "安装钉钉" \
+        7 "退出" \
+    3>&1 1>&2 2>&3)
+    
     case $CHOICE in
-    1)
-        echo "升级所有软件包"
-        execute_1_1
+        1)
+            echo "升级所有软件包"
+            execute_1_1
         ;;
-    2)
-        echo "安装WPS Office"
-        execute_1_2
+        2)
+            echo "安装WPS Office"
+            execute_1_2
         ;;
-    3)
-        echo "安装微信"
-        execute_1_3
+        3)
+            echo "WPS缩放修复"
+            execute_1_3
         ;;
-    4)
-        echo "修复微信"
+        4)
+            echo "安装微信"
+            execute_1_4
         ;;
-    5)
-        echo "钉钉"
+        5)
+            echo "修复微信快捷方式"
+            execute_1_5
         ;;
-    6)
-        echo "退出"
-        exit 0
+        6)
+            echo "安装钉钉"
+            execute_1_6
         ;;
-    *)
-        echo "未知选项"
+        7)
+            echo "退出"
+            exit 0
+        ;;
+        *)
+            echo "未知选项"
         ;;
     esac
 }
@@ -131,14 +138,25 @@ execute_1_2() {
     sed '2i\
 export QT_QPA_PLATFORMTHEME=qt5ct\
 export QT_SCALE_FACTOR=1\
-export QT_FONT_DPI=200\                 
-export QT_STYLE_OVERRIDE=kvantum' /usr/bin/wps
+export QT_FONT_DPI=200\
+    export QT_STYLE_OVERRIDE=kvantum' /usr/bin/wps
     # 弹出确认窗口
     dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "WPS安装完成，请按回车返回主界面" 10 30
 }
 
 execute_1_3() {
     # 在这里添加子操作1-3的代码
+    sed '2i\
+export QT_QPA_PLATFORMTHEME=qt5ct\
+export QT_SCALE_FACTOR=1\
+export QT_FONT_DPI=200\
+    export QT_STYLE_OVERRIDE=kvantum' /usr/bin/wps
+    # 弹出确认窗口
+    dialog --clear --backtitle "DaLongZhuaZi" --title "修复完成" --msgbox "WPS修复完成，请按回车返回主界面" 10 30
+}
+
+execute_1_4() {
+    # 在这里添加子操作1-4的代码
     apt update
     wget https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_2.1.5_arm64.deb
     sudo dpkg -i com.tencent.weixin_2.1.5_arm64.deb
@@ -152,8 +170,21 @@ execute_1_3() {
     #复制并覆盖文件
     cp -rf license/etc/* /etc/
     cp -rf license/var/* /var/
-    #移动快捷方式到桌面
-    cp -rf wechat-uos.desktop /root/桌面/
+    rm -rf /root/桌面/weixin.desktop
+    # 重新创建微信桌面快捷方式
+    cat <<EOL >>/root/桌面/weixin.desktop
+[Desktop Entry]
+Name=微信
+Exec=/opt/apps/store.spark-app.wechat-linux-spark/files/files/weixin --no-sandbox
+Terminal=false
+Type=Application
+Icon=weixin
+StartupWMClass=微信
+Comment=微信桌面版
+Categories=Unity
+Path=
+StartupNotify=false
+EOL
     #删除文件
     cd ..
     rm -rf wechat-uos
@@ -161,8 +192,8 @@ execute_1_3() {
     dialog --clear --backtitle "DaLongZhuaZi" --title "安装完成" --msgbox "微信Linux安装完成，请按回车返回主界面" 10 30
 }
 
-execute_1_4() {
-    # 在这里添加子操作1-4的代码
+execute_1_5() {
+    # 在这里添加子操作1-5的代码
     rm -rf /root/桌面/weixin.desktop
     # 重新创建微信桌面快捷方式
     cat <<EOL >>/root/桌面/weixin.desktop
@@ -182,8 +213,8 @@ EOL
     dialog --clear --backtitle "DaLongZhuaZi" --title "修复完成" --msgbox "微信修复完成，请按回车返回主界面" 10 30
 }
 
-execute_1_5() {
-    # 在这里添加子操作1-5的代码
+execute_1_6() {
+    # 在这里添加子操作1-6的代码
     apt update
     wget https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.0.40221_arm64.deb
     sudo dpkg -i com.alibabainc.dingtalk_7.5.0.40221_arm64.deb
@@ -198,7 +229,7 @@ Exec=/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh
 Terminal=false
 Type=Application
 Icon=dingding
-StartupWMClass=钉钉                                        
+StartupWMClass=钉钉
 Comment=钉钉桌面版
 Categories=AudioVideo
 Path=
@@ -248,22 +279,22 @@ execute_option_4() {
         1 "修改桌面分辨率（使用xfce4桌面）" \
         2 "清理安装过程中的错误" \
         3 "返回主界面" \
-        3>&1 1>&2 2>&3)
-
+    3>&1 1>&2 2>&3)
+    
     case $CHOICE in
-    1)
-        echo "修改桌面分辨率"
-        execute_4_1
+        1)
+            echo "修改桌面分辨率"
+            execute_4_1
         ;;
-    2)
-        echo "清理安装过程中的错误"
-        execute_4_2
+        2)
+            echo "清理安装过程中的错误"
+            execute_4_2
         ;;
-    3)
-        echo "返回主界面"
+        3)
+            echo "返回主界面"
         ;;
-    *)
-        echo "未知选项"
+        *)
+            echo "未知选项"
         ;;
     esac
 }
