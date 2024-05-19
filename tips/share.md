@@ -1,0 +1,2 @@
+# 共享文件夹
+默认把Android的Download文件夹映射到了容器内的root/sd文件夹
